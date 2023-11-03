@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import React, { useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -17,6 +17,8 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ListItems from "./ListItems";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { useEffect } from "react";
 
 function Copyright(props) {
   return (
@@ -91,8 +93,53 @@ export default function Dashboard() {
     setOpen(!open);
   };
 
-  // const store = useSelector((state) => state);
-  // console.log(store);
+  const [students, setSudents] = useState([]);
+  const [searchedStudents, setSearchedStudents] = useState([]);
+  const [searchText, setSearchText] = useState("");
+
+  const fetchStudents = async () => {
+    try {
+      let res = await axios.get("http://localhost:3000/students");
+      let data = await res.data;
+      setSudents(data);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchText(e.target.value);
+    handleSearch(searchText);
+  };
+
+  const handleSearch = async (searchText) => {
+    try {
+      let resSearch = await axios.get(
+        `http://localhost:3000/students?q=${searchText}`
+      );
+      setSearchedStudents(resSearch.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchStudents();
+    handleSearch();
+    handleDelete();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      let res = await axios.delete(`http://localhost:3000/students/${id}`);
+      handleSearch();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(searchedStudents);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -167,7 +214,7 @@ export default function Dashboard() {
 
           <form
             className="form-control mt-5 p-2"
-            style={{ marginLeft: "2rem", width: "55rem" }}
+            style={{ marginLeft: "1rem", width: "55rem" }}
           >
             <div className=" d-flex align-items-center justify-content-between">
               <div className="input1 mb-3">
@@ -179,6 +226,9 @@ export default function Dashboard() {
                   className="form-control"
                   placeholder="Search..."
                   id="search"
+                  name="search"
+                  value={searchText}
+                  onChange={handleChange}
                 />
               </div>
               <div className="select mt-3">
@@ -190,7 +240,7 @@ export default function Dashboard() {
                 </select>
               </div>
             </div>
-            <table class="table mt-3">
+            <table className="table mt-3">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -198,9 +248,66 @@ export default function Dashboard() {
                   <th scope="col">LastName</th>
                   <th scope="col">Gender</th>
                   <th scope="col">Category</th>
+                  <th scope="col">Actions</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+                {searchedStudents.length > 0
+                  ? searchedStudents.map((st, index) => (
+                      <tr key={st.id}>
+                        <td>{index + 1}</td>
+                        <td>{st.firstName}</td>
+                        <td>{st.lastName}</td>
+                        <td>{st.gender}</td>
+                        <td>{st.category}</td>
+                        <td>
+                          <button className="btn btn-success me-2">Edit</button>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => handleDelete(st.id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  : students.map((st, index) => (
+                      <tr key={st.id}>
+                        <td>{index + 1}</td>
+                        <td>{st.firstName}</td>
+                        <td>{st.lastName}</td>
+                        <td>{st.gender}</td>
+                        <td>{st.category}</td>
+                        <td>
+                          <button className="btn btn-success me-2">Edit</button>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => handleDelete(st.id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                {/* {searchedStudents.map((ss, index) => (
+                    <tr key={ss.id}>
+                      <td>{index + 1}</td>
+                      <td>{ss.firstName}</td>
+                      <td>{ss.lastName}</td>
+                      <td>{ss.gender}</td>
+                      <td>{ss.category}</td>
+                      <td>
+                        <button className="btn btn-success me-2">Edit</button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => handleDelete(ss.id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))} */}
+              </tbody>
             </table>
           </form>
         </Box>
