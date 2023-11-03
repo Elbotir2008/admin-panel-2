@@ -1,0 +1,130 @@
+{
+  "students": [
+    {
+      "firstName": "Darron",
+      "lastName": "Hayes",
+      "gender": "Cisgender male",
+      "id": "1",
+      "category": "junior"
+    },
+    {
+      "firstName": "Roscoe",
+      "lastName": "Mante",
+      "gender": "Gender variant",
+      "id": "2",
+      "category": "junior"
+    },
+    {
+      "firstName": "Allison",
+      "lastName": "Stiedemann",
+      "gender": "MTF",
+      "id": "3",
+      "category": "junior"
+    },
+    {
+      "firstName": "Jerald",
+      "lastName": "Schinner",
+      "gender": "Gender questioning",
+      "id": "4",
+      "category": "junior"
+    },
+    {
+      "firstName": "Ernestina",
+      "lastName": "Veum",
+      "gender": "Cis man",
+      "id": "5",
+      "category": "junior"
+    },
+    {
+      "firstName": "Miracle",
+      "lastName": "Yundt",
+      "gender": "Two-spirit",
+      "id": "6",
+      "category": "junior"
+    },
+    {
+      "firstName": "Genesis",
+      "lastName": "Jenkins",
+      "gender": "Transexual male",
+      "id": "7",
+      "category": "middle"
+    },
+    {
+      "firstName": "Isabella",
+      "lastName": "Greenholt",
+      "gender": "Transgender person",
+      "id": "8",
+      "category": "middle"
+    },
+    {
+      "firstName": "Leanne",
+      "lastName": "Simonis",
+      "gender": "Transmasculine",
+      "id": "9",
+      "category": "middle"
+    },
+    {
+      "firstName": "Chaya",
+      "lastName": "Lehner",
+      "gender": "Cis male",
+      "id": "10",
+      "category": "middle"
+    },
+    {
+      "firstName": "Garret",
+      "lastName": "Auer",
+      "gender": "Cisgender man",
+      "id": "11",
+      "category": "middle"
+    },
+    {
+      "firstName": "General",
+      "lastName": "Daugherty",
+      "gender": "Agender",
+      "id": "12",
+      "category": "middle"
+    },
+    {
+      "firstName": "Ron",
+      "lastName": "Brakus",
+      "gender": "Transmasculine",
+      "id": "13",
+      "category": "senior"
+    },
+    {
+      "firstName": "Celine",
+      "lastName": "Cormier",
+      "gender": "Other",
+      "id": "14",
+      "category": "senior"
+    },
+    {
+      "firstName": "Polly",
+      "lastName": "Osinski",
+      "gender": "Intersex",
+      "id": "15",
+      "category": "senior"
+    },
+    {
+      "firstName": "Princess",
+      "lastName": "King",
+      "gender": "Polygender",
+      "id": "16",
+      "category": "senior"
+    },
+    {
+      "firstName": "Elisabeth",
+      "lastName": "Purdy",
+      "gender": "Transexual female",
+      "id": "17",
+      "category": "senior"
+    },
+    {
+      "firstName": "Kennedi",
+      "lastName": "Feil",
+      "gender": "Xenogender",
+      "id": "18",
+      "category": "senior"
+    }
+  ]
+}
