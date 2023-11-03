@@ -93,24 +93,21 @@ export default function Dashboard() {
     setOpen(!open);
   };
 
-  const [input1, setInput1] = useState("");
-  const [input2, setInput2] = useState("");
-  const [input3, setInput3] = useState("");
-  const [input4, setInput4] = useState("");
-  const [allAddTexts, setAllAddTexts] = useState([
-    // input1,
-    // input2,
-    // input3,
-    // input4,
-  ]);
+  const [values, setValues] = useState({
+    firstName: "",
+    lastName: "",
+    gender: "",
+    category: "",
+  });
 
-  const handleChange = (e) => {
-    setAllAddTexts(...allAddTexts, e.target.value);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(allAddTexts);
+    try {
+      const res = await axios.post(`http://localhost:3000/students`, values);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -200,9 +197,10 @@ export default function Dashboard() {
               <input
                 type="text"
                 className="form-control"
-                name="input1"
-                value={input1}
-                onChange={(e) => handleChange(e)}
+                name="firstName"
+                onChange={(e) =>
+                  setValues({ ...values, firstName: e.target.value })
+                }
                 id="firstname"
               />
             </div>
@@ -213,9 +211,10 @@ export default function Dashboard() {
               <input
                 type="text"
                 className="form-control"
-                name="input3"
-                value={input2}
-                onChange={(e) => handleChange(e)}
+                name="lastName"
+                onChange={(e) =>
+                  setValues({ ...values, lastName: e.target.value })
+                }
                 id="lastname"
               />
             </div>
@@ -226,27 +225,29 @@ export default function Dashboard() {
               <input
                 type="text"
                 className="form-control"
-                name="input3"
-                value={input3}
-                onChange={(e) => handleChange(e)}
+                name="gender"
+                onChange={(e) =>
+                  setValues({ ...values, gender: e.target.value })
+                }
                 id="gender"
               />
             </div>
             <select
               className="form-select mt-4"
-              name="input4"
-              value={input4}
-              onChange={(e) => handleChange(e)}
+              name="category"
+              onChange={(e) =>
+                setValues({ ...values, category: e.target.value })
+              }
             >
               <option value="junior">junior</option>
               <option value="middle">middle</option>
               <option value="senior">senior</option>
             </select>
-            {/* <Link href="/adminPanel"> */}
-            <button type="submit" className="btn btn-primary mt-4 w-100">
-              Submit
-            </button>
-            {/* </Link> */}
+            <Link href="/adminPanel">
+              <button type="submit" className="btn btn-primary mt-4 w-100">
+                Submit
+              </button>
+            </Link>
           </form>
         </Box>
       </Box>
