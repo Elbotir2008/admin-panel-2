@@ -114,6 +114,17 @@ export default function Dashboard({ params: { id } }) {
     getValuesById();
   }, []);
 
+  const handleSearch = async (searchText) => {
+    try {
+      let resSearch = await axios.get(
+        `https://654503825a0b4b04436d735b.mockapi.io/api/v1/Students?search=${searchText}`
+      );
+      setSudents(resSearch.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleEdit = async (e) => {
     e.preventDefault();
     try {
@@ -122,6 +133,7 @@ export default function Dashboard({ params: { id } }) {
         values
       );
       let data = await res.data;
+      handleSearch();
     } catch (err) {
       console.log(err);
     }

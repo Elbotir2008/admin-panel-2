@@ -134,7 +134,6 @@ export default function Dashboard() {
       let res = await axios.delete(
         `https://654503825a0b4b04436d735b.mockapi.io/api/v1/Students/${id}`
       );
-      // handleSearch();
     } catch (error) {
       console.log(error);
     }
