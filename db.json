@@ -1,13 +1,6 @@
 {
   "students": [
     {
-      "firstName": "Roscoe",
-      "lastName": "Mante",
-      "gender": "Gender variant",
-      "id": "2",
-      "category": "middle"
-    },
-    {
       "firstName": "Allison",
       "lastName": "Stiedemann",
       "gender": "MTF",
@@ -34,13 +27,6 @@
       "gender": "Two-spirit",
       "id": "6",
       "category": "senior"
-    },
-    {
-      "firstName": "Genesis",
-      "lastName": "Jenkins",
-      "gender": "Transexual male",
-      "id": "7",
-      "category": "middle"
     },
     {
       "firstName": "Isabella",
@@ -92,13 +78,6 @@
       "category": "middle"
     },
     {
-      "firstName": "Polly",
-      "lastName": "Osinski",
-      "gender": "Intersex",
-      "id": "15",
-      "category": "senior"
-    },
-    {
       "firstName": "Princess",
       "lastName": "King",
       "gender": "Polygender",
@@ -106,32 +85,18 @@
       "category": "senior"
     },
     {
-      "firstName": "Elisabeth",
-      "lastName": "Purdy",
-      "gender": "Transexual female",
-      "id": "17",
-      "category": "junior"
-    },
-    {
-      "firstName": "Kennedi",
-      "lastName": "Feil",
-      "gender": "Xenogender",
-      "id": "18",
-      "category": "middle"
-    },
-    {
       "firstName": "Asadov",
       "lastName": "Muhammad",
-      "gender": "female",
-      "category": "",
-      "id": "3vRXr7N"
+      "gender": "male",
+      "category": "senior",
+      "id": "IZkp8Qp"
     },
     {
-      "firstName": "Asadov",
-      "lastName": "Muhammad",
+      "firstName": "Asadova",
+      "lastName": "Shahnoza",
       "gender": "female",
       "category": "",
-      "id": "pCj_kji"
+      "id": "4FIAr5a"
     }
   ]
 }

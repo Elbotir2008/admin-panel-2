@@ -14,8 +14,10 @@ import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import ListItems from "../ListItems";
+import ListItems from "../../ListItems";
+import { useSelector } from "react-redux";
 import axios from "axios";
+import { useEffect } from "react";
 import Link from "next/link";
 
 function Copyright(props) {
@@ -85,7 +87,7 @@ const Drawer = styled(MuiDrawer, {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+export default function Dashboard({ params: { id } }) {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -98,12 +100,14 @@ export default function Dashboard() {
     category: "",
   });
 
-  const handleSubmit = async (e) => {
+  const handleEdit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/students", values);
-      let data = await res.data;
-      console.log(data);
+      const res = await axios.put(
+        `http://localhost:3000/students` + id,
+        values
+      );
+      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -182,6 +186,7 @@ export default function Dashboard() {
 
           <form
             className="form-control p-3 mt-4"
+            onSubmit={(e) => handleEdit(e)}
             style={
               open
                 ? { width: "55rem", marginLeft: "1.5rem" }
@@ -196,6 +201,7 @@ export default function Dashboard() {
                 type="text"
                 className="form-control"
                 name="firstName"
+                value={values.firstName}
                 onChange={(e) =>
                   setValues({ ...values, firstName: e.target.value })
                 }
@@ -210,6 +216,7 @@ export default function Dashboard() {
                 type="text"
                 className="form-control"
                 name="lastName"
+                value={values.lastName}
                 onChange={(e) =>
                   setValues({ ...values, lastName: e.target.value })
                 }
@@ -224,6 +231,7 @@ export default function Dashboard() {
                 type="text"
                 className="form-control"
                 name="gender"
+                value={values.gender}
                 onChange={(e) =>
                   setValues({ ...values, gender: e.target.value })
                 }
@@ -233,27 +241,20 @@ export default function Dashboard() {
             <select
               className="form-select mt-4"
               name="category"
+              value={values.category}
               onChange={(e) =>
                 setValues({ ...values, category: e.target.value })
               }
-              id="category"
             >
               <option value="junior">junior</option>
               <option value="middle">middle</option>
               <option value="senior">senior</option>
             </select>
-            <button
-              type="submit"
-              className="btn btn-primary mt-4 "
-              onClick={(e) => handleSubmit(e)}
-            >
-              <Link
-                href="/adminPanel"
-                className="text-white text-decoration-none "
-              >
+            <Link href="/adminPanel">
+              <button type="submit" className="btn btn-primary mt-4 w-100">
                 Submit
-              </Link>
-            </button>
+              </button>
+            </Link>
           </form>
         </Box>
       </Box>

@@ -11,7 +11,6 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
-import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -19,6 +18,7 @@ import ListItems from "./ListItems";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useEffect } from "react";
+import Link from "next/link";
 
 function Copyright(props) {
   return (
@@ -126,11 +126,6 @@ export default function Dashboard() {
       console.log(error);
     }
   };
-  useEffect(() => {
-    fetchStudents();
-    handleSearch();
-    handleDelete();
-  }, []);
 
   const handleDelete = async (id) => {
     try {
@@ -140,6 +135,12 @@ export default function Dashboard() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    fetchStudents();
+    handleSearch();
+    handleDelete();
+  }, []);
 
   const handleSelect = (categ) => {
     setCategory(categ);
@@ -308,7 +309,9 @@ export default function Dashboard() {
                         <td>{st.gender}</td>
                         <td>{st.category}</td>
                         <td>
+                          {/* <Link href={`/adminPanel/editStudents/${st.id}`}> */}
                           <button className="btn btn-success me-2">Edit</button>
+                          {/* </Link> */}
                           <button
                             className="btn btn-danger"
                             onClick={() => handleDelete(st.id)}
@@ -326,7 +329,9 @@ export default function Dashboard() {
                         <td>{st.gender}</td>
                         <td>{st.category}</td>
                         <td>
+                          {/* <Link href={`/adminPanel/editStudents/${st.id}`}> */}
                           <button className="btn btn-success me-2">Edit</button>
+                          {/* </Link> */}
                           <button
                             className="btn btn-danger"
                             onClick={() => handleDelete(st.id)}
