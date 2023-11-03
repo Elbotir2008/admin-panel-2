@@ -1,4 +1,4 @@
-import Dashboard from "./tools/Dashboard";
+import Dashboard from "./Dashboard";
 const page = () => {
   return (
     <div>

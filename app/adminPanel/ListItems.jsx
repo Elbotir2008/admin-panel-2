@@ -9,6 +9,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import Link from "next/link";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 const ListItems = () => {
   return (
@@ -21,30 +22,28 @@ const ListItems = () => {
           <ListItemText primary="Login" />
         </ListItemButton>
       </Link>
-      <ListItemButton>
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Dashboard" />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <ListItemText primary="Customers" />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <BarChartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Reports" />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <LayersIcon />
-        </ListItemIcon>
-        <ListItemText primary="Integrations" />
-      </ListItemButton>
+      <Link
+        href="/adminPanel"
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <ListItemButton>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItemButton>
+      </Link>
+      <Link
+        href="/adminPanel/addStudents"
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <ListItemButton>
+          <ListItemIcon>
+            <PersonAddIcon />
+          </ListItemIcon>
+          <ListItemText primary="AddStudents" />
+        </ListItemButton>
+      </Link>
     </React.Fragment>
   );
 };

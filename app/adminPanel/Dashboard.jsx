@@ -95,14 +95,16 @@ export default function Dashboard() {
 
   const [students, setSudents] = useState([]);
   const [searchedStudents, setSearchedStudents] = useState([]);
+  const [selectedStudents, setSelectedStudents] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [category, setCategory] = useState("");
+  const [posts, setPosts] = useState([]);
 
   const fetchStudents = async () => {
     try {
       let res = await axios.get("http://localhost:3000/students");
       let data = await res.data;
-      setSudents(data);
-      console.log(data);
+      setPosts(data);
     } catch (error) {
       console.log(error);
     }
@@ -119,7 +121,7 @@ export default function Dashboard() {
       let resSearch = await axios.get(
         `http://localhost:3000/students?q=${searchText}`
       );
-      setSearchedStudents(resSearch.data);
+      setSudents(resSearch.data);
     } catch (error) {
       console.log(error);
     }
@@ -139,7 +141,25 @@ export default function Dashboard() {
     }
   };
 
-  console.log(searchedStudents);
+  const handleSelect = (categ) => {
+    setCategory(categ);
+    fetchSelected(categ);
+  };
+
+  const fetchSelected = async (categ) => {
+    try {
+      let resSelected = await axios.get(
+        `http://localhost:3000/students?q=${categ}`
+      );
+      setSudents(resSelected.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSelected();
+  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -214,7 +234,11 @@ export default function Dashboard() {
 
           <form
             className="form-control mt-5 p-2"
-            style={{ marginLeft: "1rem", width: "55rem" }}
+            style={
+              open
+                ? { width: "55rem", marginLeft: "1.5rem" }
+                : { width: "60rem", marginLeft: "5rem" }
+            }
           >
             <div className=" d-flex align-items-center justify-content-between">
               <div className="input1 mb-3">
@@ -232,8 +256,10 @@ export default function Dashboard() {
                 />
               </div>
               <div className="select mt-3">
-                <select className="form-select">
-                  <option value="category">category</option>
+                <select
+                  className="form-select"
+                  onChange={(e) => handleSelect(e.target.value)}
+                >
                   <option value="junior">junior</option>
                   <option value="middle">middle</option>
                   <option value="senior">senior</option>
@@ -252,7 +278,7 @@ export default function Dashboard() {
                 </tr>
               </thead>
               <tbody>
-                {searchedStudents.length > 0
+                {/* {searchedStudents.length > 0
                   ? searchedStudents.map((st, index) => (
                       <tr key={st.id}>
                         <td>{index + 1}</td>
@@ -271,7 +297,28 @@ export default function Dashboard() {
                         </td>
                       </tr>
                     ))
-                  : students.map((st, index) => (
+                  : null} */}
+
+                {students.length > 0
+                  ? students.map((st, index) => (
+                      <tr key={st.id}>
+                        <td>{index + 1}</td>
+                        <td>{st.firstName}</td>
+                        <td>{st.lastName}</td>
+                        <td>{st.gender}</td>
+                        <td>{st.category}</td>
+                        <td>
+                          <button className="btn btn-success me-2">Edit</button>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => handleDelete(st.id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  : posts.map((st, index) => (
                       <tr key={st.id}>
                         <td>{index + 1}</td>
                         <td>{st.firstName}</td>
@@ -289,6 +336,28 @@ export default function Dashboard() {
                         </td>
                       </tr>
                     ))}
+
+                {/* {selectedStudents.length > 0
+                  ? selectedStudents.map((st, index) => (
+                      <tr key={st.id}>
+                        <td>{index + 1}</td>
+                        <td>{st.firstName}</td>
+                        <td>{st.lastName}</td>
+                        <td>{st.gender}</td>
+                        <td>{st.category}</td>
+                        <td>
+                          <button className="btn btn-success me-2">Edit</button>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => handleDelete(st.id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  : null} */}
+
                 {/* {searchedStudents.map((ss, index) => (
                     <tr key={ss.id}>
                       <td>{index + 1}</td>
