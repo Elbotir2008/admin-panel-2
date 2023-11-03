@@ -98,6 +98,17 @@ export default function Dashboard() {
     category: "",
   });
 
+  const handleSearch = async (searchText) => {
+    try {
+      let resSearch = await axios.get(
+        `https://654503825a0b4b04436d735b.mockapi.io/api/v1/Students?search=${searchText}`
+      );
+      setSudents(resSearch.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -107,6 +118,7 @@ export default function Dashboard() {
       );
       let data = await res.data;
       console.log(data);
+      handleSearch();
     } catch (err) {
       console.log(err);
     }
