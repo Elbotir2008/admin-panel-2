@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -14,10 +14,8 @@ import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import ListItems from "../../ListItems";
-import { useSelector } from "react-redux";
+import ListItems from "../ListItems";
 import axios from "axios";
-import { useEffect } from "react";
 import Link from "next/link";
 
 function Copyright(props) {
@@ -100,14 +98,30 @@ export default function Dashboard({ params: { id } }) {
     category: "",
   });
 
+  const getValuesById = async () => {
+    try {
+      let res = await axios.get(
+        "https://654503825a0b4b04436d735b.mockapi.io/api/v1/Students/" + id
+      );
+      let data = await res.data;
+      setValues(data);
+    } catch (er) {
+      console.log(er);
+    }
+  };
+
+  useEffect(() => {
+    getValuesById();
+  }, []);
+
   const handleEdit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.put(
-        `http://localhost:3000/students` + id,
+        "https://654503825a0b4b04436d735b.mockapi.io/api/v1/Students/" + id,
         values
       );
-      console.log(res.data);
+      let data = await res.data;
     } catch (err) {
       console.log(err);
     }
@@ -186,7 +200,6 @@ export default function Dashboard({ params: { id } }) {
 
           <form
             className="form-control p-3 mt-4"
-            onSubmit={(e) => handleEdit(e)}
             style={
               open
                 ? { width: "55rem", marginLeft: "1.5rem" }
@@ -245,16 +258,24 @@ export default function Dashboard({ params: { id } }) {
               onChange={(e) =>
                 setValues({ ...values, category: e.target.value })
               }
+              id="category"
             >
               <option value="junior">junior</option>
               <option value="middle">middle</option>
               <option value="senior">senior</option>
             </select>
-            <Link href="/adminPanel">
-              <button type="submit" className="btn btn-primary mt-4 w-100">
+            <button
+              type="submit"
+              className="btn btn-primary mt-4 "
+              onClick={(e) => handleEdit(e)}
+            >
+              <Link
+                href="/adminPanel"
+                className="text-white text-decoration-none "
+              >
                 Submit
-              </button>
-            </Link>
+              </Link>
+            </button>
           </form>
         </Box>
       </Box>

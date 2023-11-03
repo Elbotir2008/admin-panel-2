@@ -101,7 +101,10 @@ export default function Dashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/students", values);
+      const res = await axios.post(
+        "https://654503825a0b4b04436d735b.mockapi.io/api/v1/Students",
+        values
+      );
       let data = await res.data;
       console.log(data);
     } catch (err) {

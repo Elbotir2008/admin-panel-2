@@ -102,7 +102,9 @@ export default function Dashboard() {
 
   const fetchStudents = async () => {
     try {
-      let res = await axios.get("http://localhost:3000/students");
+      let res = await axios.get(
+        "https://654503825a0b4b04436d735b.mockapi.io/api/v1/Students"
+      );
       let data = await res.data;
       setPosts(data);
     } catch (error) {
@@ -119,7 +121,7 @@ export default function Dashboard() {
   const handleSearch = async (searchText) => {
     try {
       let resSearch = await axios.get(
-        `http://localhost:3000/students?q=${searchText}`
+        `https://654503825a0b4b04436d735b.mockapi.io/api/v1/Students?search=${searchText}`
       );
       setSudents(resSearch.data);
     } catch (error) {
@@ -129,8 +131,10 @@ export default function Dashboard() {
 
   const handleDelete = async (id) => {
     try {
-      let res = await axios.delete(`http://localhost:3000/students/${id}`);
-      handleSearch();
+      let res = await axios.delete(
+        `https://654503825a0b4b04436d735b.mockapi.io/api/v1/Students/${id}`
+      );
+      // handleSearch();
     } catch (error) {
       console.log(error);
     }
@@ -139,7 +143,6 @@ export default function Dashboard() {
   useEffect(() => {
     fetchStudents();
     handleSearch();
-    handleDelete();
   }, []);
 
   const handleSelect = (categ) => {
@@ -150,7 +153,7 @@ export default function Dashboard() {
   const fetchSelected = async (categ) => {
     try {
       let resSelected = await axios.get(
-        `http://localhost:3000/students?q=${categ}`
+        `https://654503825a0b4b04436d735b.mockapi.io/api/v1/Students?search=${categ}`
       );
       setSudents(resSelected.data);
     } catch (error) {
@@ -279,27 +282,6 @@ export default function Dashboard() {
                 </tr>
               </thead>
               <tbody>
-                {/* {searchedStudents.length > 0
-                  ? searchedStudents.map((st, index) => (
-                      <tr key={st.id}>
-                        <td>{index + 1}</td>
-                        <td>{st.firstName}</td>
-                        <td>{st.lastName}</td>
-                        <td>{st.gender}</td>
-                        <td>{st.category}</td>
-                        <td>
-                          <button className="btn btn-success me-2">Edit</button>
-                          <button
-                            className="btn btn-danger"
-                            onClick={() => handleDelete(st.id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  : null} */}
-
                 {students.length > 0
                   ? students.map((st, index) => (
                       <tr key={st.id}>
@@ -309,9 +291,11 @@ export default function Dashboard() {
                         <td>{st.gender}</td>
                         <td>{st.category}</td>
                         <td>
-                          {/* <Link href={`/adminPanel/editStudents/${st.id}`}> */}
-                          <button className="btn btn-success me-2">Edit</button>
-                          {/* </Link> */}
+                          <Link href={`/adminPanel/${st.id}`}>
+                            <button className="btn btn-success me-2">
+                              Edit
+                            </button>
+                          </Link>
                           <button
                             className="btn btn-danger"
                             onClick={() => handleDelete(st.id)}
@@ -329,9 +313,11 @@ export default function Dashboard() {
                         <td>{st.gender}</td>
                         <td>{st.category}</td>
                         <td>
-                          {/* <Link href={`/adminPanel/editStudents/${st.id}`}> */}
-                          <button className="btn btn-success me-2">Edit</button>
-                          {/* </Link> */}
+                          <Link href={`/adminPanel/${st.id}`}>
+                            <button className="btn btn-success me-2">
+                              Edit
+                            </button>
+                          </Link>
                           <button
                             className="btn btn-danger"
                             onClick={() => handleDelete(st.id)}
@@ -341,46 +327,6 @@ export default function Dashboard() {
                         </td>
                       </tr>
                     ))}
-
-                {/* {selectedStudents.length > 0
-                  ? selectedStudents.map((st, index) => (
-                      <tr key={st.id}>
-                        <td>{index + 1}</td>
-                        <td>{st.firstName}</td>
-                        <td>{st.lastName}</td>
-                        <td>{st.gender}</td>
-                        <td>{st.category}</td>
-                        <td>
-                          <button className="btn btn-success me-2">Edit</button>
-                          <button
-                            className="btn btn-danger"
-                            onClick={() => handleDelete(st.id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  : null} */}
-
-                {/* {searchedStudents.map((ss, index) => (
-                    <tr key={ss.id}>
-                      <td>{index + 1}</td>
-                      <td>{ss.firstName}</td>
-                      <td>{ss.lastName}</td>
-                      <td>{ss.gender}</td>
-                      <td>{ss.category}</td>
-                      <td>
-                        <button className="btn btn-success me-2">Edit</button>
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => handleDelete(ss.id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))} */}
               </tbody>
             </table>
           </form>
